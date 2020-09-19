@@ -1,6 +1,4 @@
-const {parse} = require('node-html-parser');
-const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36';
-const {createBestbuyItems, createAmazonItems, createCanadaComputersItems} = require('./adapter');
+const {createBestbuyItems, createAmazonItems, createCanadaComputersItems, createNeweggItems} = require('./adapter');
 
 const stores = {
   ...createBestbuyItems([
@@ -32,6 +30,7 @@ const stores = {
     'https://www.amazon.ca/GIGABYTE-GeForce-Graphics-WINDFORCE-GV-N3080EAGLE/dp/B08HJS2JLJ?ref_=ast_sto_dp',
   ]),
   ...createCanadaComputersItems('https://www.canadacomputers.com/search/results_details.php?language=en&keywords=rtx+3080'),
+  ...createNeweggItems('https://www.newegg.ca/p/pl?d=rtx+3080&N=100007708&name=Desktop+Graphics+Cards'),
 
 };
 

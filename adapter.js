@@ -69,7 +69,7 @@ function createCanadaComputersItems(url) {
       'User-Agent': userAgent
     },
     quantities: text => {
-      const result = [];
+      const data = [];
       const root = parse(text);
       const products = root.querySelectorAll('.col-12.py-1.px-1.bg-white.mb-1.productTemplate.gridViewToggle');
       for (const product of products) {
@@ -78,18 +78,47 @@ function createCanadaComputersItems(url) {
 
         const isAvailableOnline = product.innerHTML.includes('Online In Stock') || product.innerHTML.includes('Order Online and Pick Up In-Store');
         const isAvailableInStore = product.innerHTML.includes('Available In Stores') ||  product.innerHTML.includes('Available In Selected Stores');
-        result.push({
+        data.push({
           quantity: isAvailableOnline || isAvailableInStore,
           name,
           url: product.querySelector('a').attributes.href
         })
       }
-      return result;
+      return data;
     },
   };
   return {CanadaComputers: result};
 }
 
+// https://www.newegg.ca/p/pl?d=rtx+3080&N=100007708&name=Desktop+Graphics+Cards
+function createNeweggItems(url) {
+  const result = {
+    url,
+    method: 'GET',
+    headers: {
+      'User-Agent': userAgent
+    },
+    quantities: text => {
+      const data = [];
+      const root = parse(text);
+      const products = root.querySelectorAll('.item-cell');
+      for (const product of products) {
+        const name = product.querySelector('a.item-title').innerHTML;
+        // const price = product.querySelector('.price strong').innerHTML;
+
+        const isAvailableOnline = !product.innerHTML.includes('OUT OF STOCK');
+        data.push({
+          quantity: isAvailableOnline,
+          name,
+          url: product.querySelector('a').attributes.href
+        })
+      }
+      return data;
+    },
+  };
+  return {newegg: result};
+}
+
 module.exports = {
-  createBestbuyItems, createAmazonItems, createCanadaComputersItems
+  createBestbuyItems, createAmazonItems, createCanadaComputersItems, createNeweggItems
 }

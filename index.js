@@ -38,23 +38,28 @@ async function checkStore(storeName, store) {
   let quantities = await getQuantity(store);
   for (let i = 0; i < quantities.length; i++) {
     const {quantity, name, url} = quantities[i];
+    let display = `${storeName} ${name}`;
+
+    if (display.length > 60)
+      display = display.slice(0, 60) + '...';
+
     if (quantity > 0) {
-      console.error(storeName, name, 'has', quantity === true ? '>=1' : quantity, url);
+      console.error(display, 'has', quantity === true ? '>=1' : quantity, url);
 
       if (lastLink !== url) {
         open(url);
         lastLink = url;
       }
 
-      // send(`${storeName} ${name} has ${quantity === true ? '>=1' : quantity} <a href="${url}">link</a>`)
+      send(`${storeName} ${name} has ${quantity === true ? '>=1' : quantity} <a href="${url}">link</a>`)
     } else
-      console.log(storeName, name, 'has 0')
+      console.log(display, 'has 0')
   }
 }
 
 async function main() {
   while (1) {
-    const timeWait = 10000 + Math.random() * 40 * 1000;
+    const timeWait = 5000 + Math.random() * 10 * 1000;
     const promises = [];
     for (const [storeName, store] of Object.entries(stores)) {
       promises.push(checkStore(storeName, store));
