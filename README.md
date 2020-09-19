@@ -1,5 +1,5 @@
 # where-to-buy-nvidia-rtx-3080  (Canada only)
-Scan availability of rtx-3080 from Amazon.ca, Bestbuy.
+Scan availability of rtx-3080 from Amazon.ca, Bestbuy, Newegg, Canada Computers.
 Open the browser when available.
 
 ### How to use

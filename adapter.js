@@ -87,7 +87,7 @@ function createCanadaComputersItems(url) {
       return data;
     },
   };
-  return {CanadaComputers: result};
+  return {canadacomputers: result};
 }
 
 // https://www.newegg.ca/p/pl?d=rtx+3080&N=100007708&name=Desktop+Graphics+Cards
